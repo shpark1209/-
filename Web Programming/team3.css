@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+body{
+    background-color: black;
+    vertical-align: middle;
+}
+
+canvas {
+    background-color: #d2cef1da;
+    text-align: center;
+}
+
+#status_bar{
+    margin: auto;
+    z-index: 1;
+    width: 800px;
+    height: 100px;
+    position: relative;
+}
+
+.skill{    
+    float: right;
+    position: absolute;
+    top: 510px;
+    left: 87%;
+}
+
+#sword{
+    border-radius: 10px;
+}
+
+#stageCanvas {
+    display: none;
+    margin: auto;
+}
+#mapCanvas{
+    margin: auto;
+}
+#gamewrapper{
+    display: flex;
+}
+
+#page{
+    margin: auto;
+    width: 800px;
+    height: 100%;
+    position: relative;
+}
+#hp{
+    float: left;
+    position: absolute;
+    top: 130px;
+    left: 5%;
+}
+#bossHp{
+    float: left;
+    position: absolute;
+    top: 130px;
+    right: 5%;
+}

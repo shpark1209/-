@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link type="text/css" rel="stylesheet" href="main.css">
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script type="text/javascript" src="main.js"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="team3.css">
+   <script src="varients.js"></script>
+   <script src="onMap.js"></script>
+   <script src="onStage.js"></script>
+   <title>
+      
+   </title>
+</head>
+<body>
+   <!--로딩 인트로-->
+   <div id="wrapper">
+      <!--오디오-->
+      <div class="top-hero" id="hero">
+         <!--배경 영상처리-->
+         <div class="video-background">
+            <div class="video-foreground">
+               <div class="_16-9-desktop_9-16-mobile">
+                  <iframe id="topHeroVideo" src="https://player.vimeo.com/video/461295222?background=1" width="640" height="360" frameborder="0" allow="autoplay" data-ready="true">
+                  </iframe>
+               </div>
+            </div>
+         </div>
+         <!--제목-->
+         <div class="top-hero__content">
+            <img src="source/biome/title.png" class="title-img">
+         </div>
+         <!--시작버튼-->
+         <div class="moving-zone">
+            <div class="popup">
+               <div class="popup-content">
+                  <div class="popup-text" >
+                     game <b>start</b>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--환경설정-->
+         <div class="setting">
+            <input type="button" class="setting-button" id="contents">
+               <img src="source/setting.png" class="setting-img" id="setting_button">
+            </input>
+         </div>
+         <!-- 환경설정에서 pop up-->
+         <div id="popup">
+            <div id="popmenu">
+               <div id="music-onoff">
+                  <div class="music-setting">Music</div>
+                  <label class="rad-label">
+                    <input type="radio" class="rad-input" name="rad" value="on" checked>
+                    <div class="rad-design"></div>
+                    <div class="rad-text">On</div>
+                  </label>
+                 
+                  <label class="rad-label">
+                  <input type="radio" class="rad-input" name="rad" value="off">
+                  <div class="rad-design"></div>
+                  <div class="rad-text">Off</div>
+                  </label>
+               </div>
+               <div id="language">
+                  <div class="language-setting">Language</div>
+                  <label class="rad-label2">
+                  <input type="radio" class="rad-input2" name="rad2" value="kor" checked>
+                  <div class="rad-design"></div>
+                  <div class="rad-text">Korean</div>
+                  </label>
+                  
+                  <label class="rad-label2">
+                  <input type="radio" class="rad-input2" name="rad2" value="eng">
+                  <div class="rad-design"></div>
+                  <div class="rad-text">English</div>
+                  </label>
+               </div>
+               <div id="set_ballColor">
+                  <div class="color-setting">Ball Color</div><br>
+                  <div id="setting_color"></div>
+                  <div id="ballColor">
+                     <div id="R">RED</div>
+                     <input type="range" id="Red" value="0" min="0" max="255">
+                     <div id="G">GREEN</div>
+                     <input type="range" id="Green" value="0" min="0" max="255">
+                     <div id="B">BLUE</div>
+                     <input type="range" id="Blue" value="0" min="0" max="255">
+                  </div>
+               </div>
+               <div class="exit">save</div>
+            </div>
+         </div>   
+      </div>
+   </div>
+   <div class="welcome-section content-hidden">
+      <div class="content-wrap">
+         <ul class="fly-in-text">
+            <li>T</li>
+            <li>E</li>
+            <li>A</li>
+            <li>M</li>
+            <li>3</li>
+         </ul>
+         <a href="#" class="enter-button">Are you ready?</a>
+      </div>
+   </div>
+   <div class="story">
+      <div class="story1">
+         <h1 class="page1" id="shadow1">
+            어느 마을에는 영웅을 동경하는 한 사내가 살았습니다. </br>
+            이 사내는 언젠간 자신이 마을에 닥칠 위기를 막고 영웅이 될 것이라고 생각하고 다녔죠. </br>
+            "난 용사가 되어야겠어..!!"</br>
+            그러나 기회는 오지 않았습니다. </br>
+            그러다 그는 전설의 크툴루의 눈에 대한 설화를 듣게 되었습니다.</br>
+         </h1>
+		<div class="story-img-div">
+			<img src="source/story1-5.jpg" class="story-img">
+		</div>
+		<div>
+            <div id="arrow-down1" class="arrow-down">
+               <a href="#shadow2">
+               <span></span>
+               <span></span>
+               <span></span>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="story2">
+         <h1 class="page2" id="shadow2">
+            "지옥에는 크툴루의 눈이라는 전설의 괴물이 산다더라… </br>
+            이 괴물은 평범한 칼은 안들고 테라소드라는 전설의 검으로만
+            상처를 입힐 수 있다고 들었어.."</br></br>
+            "테라소드는 빛의 여제를 쓰러트린 사람에게 나타난다고 했어"</br></br>
+            "그러면 크툴루의 눈은 무적이네.."</br>
+         </h1>
+		 <div class="story-img-div">
+			<img src="source/story1-1.jpg" class="story-img">
+		 </div>
+         <div>
+            <div id="arrow-down2" class="arrow-down">
+               <a href="#shadow3">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="story3">
+         <h1 class="page3" id="shadow3">
+            다른 사람들은 이 이야기를 그저 설화로 취급했지만,</br>
+            주인공만은 이 기회를 놓치지 않았습니다.</br>
+            "크툴루의 눈을 물리친다면, 나는 전설이 될거야!"</br>
+            그렇게 그는 홀로 모험에 나섭니다.</br>
+		 </h1>
+		 <div  class="story-img-div">
+			<img src="source/story1-2.jpg" class="story-img">
+		 </div>
+         <div>
+            <div id="arrow-down3" class="arrow-down">
+               <a href="#mode">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="mode-selection" id="mode">
+	   <div class="section-fluid-main">
+	   	<div class="section-row">
+	   		<div class="section-col">
+	   			<div class="section">
+	   				<div class="section-in" id="select_easy">
+	   					<img src="source/easy.png" alt="">
+	   				</div>
+	   			</div>
+	   		</div>
+	   		<div class="hover-text">
+	   			<h2>Easy</h2>
+	   		</div>
+	   		<div class="section-col">
+	   			<div class="section">
+	   				<div class="section-in" id="select_normal">
+	   					<img src="source/nomal.jpg" alt="">
+	   				</div>
+	   			</div>
+	   		</div>
+	   		<div class="hover-text">
+	   			<h2>Normal</h2>
+	   		</div>
+	   		<div class="section-col">
+	   			<div class="section">
+	   				<div class="section-in" id="select_hard">
+	   					<img src="source/hard.png" alt="">
+	   				</div>
+	   			</div>
+	   		</div>
+	   		<div class="hover-text">
+	   			<h2>Hard</h2>
+	   		</div>
+	   	</div>	
+	   </div>
+   </div>
+   <div id="page">
+      <div id="status_bar">
+         <div class="skill">
+            스킬 : 검격(Q)<br>
+            <img src="source/warrior_skill.gif" width="70px" id="sword">
+         </div>
+         <div id="hp"></div>
+         <div id="bossHp"></div>
+      </div>
+      <div id="gamewrapper">
+         <canvas id="mapCanvas"></canvas>
+         <canvas id="stageCanvas"></canvas>
+      </div>
+   
+      <div class="popupOnGame" id="stageClear">
+         Stage Clear!
+      </div>
+      <div class="popupOnGame" id="gameClear">
+         Game Clear!!
+      </div>
+      <div class="popupOnGame" id="finalChance">
+         Final Chance!
+      </div>
+      <div class="popupOnGame" id="gameOver">
+         Game Over
+      </div>
+   </div>
+   <div id="epilouge"">
+      <h1 class="page1" id="shadow1">
+         <br><br><br><br><br>br
+         @ Konkuk Univ 2022 </br>
+         <br>
+         made by </br>
+         <br>
+         202111296 박수현 <br>
+         202111349 이준필 <br>
+         202111374 조동현 <br>
+         202111380 최상 </br>
+         <br>
+         <div id="epButton">다시 플레이!</div>
+         <br><br><br><br><br><br>
+      </h1>
+   </div>
+</body>
+</html>
