@@ -1,0 +1,76 @@
+{
+    "jobCard":[
+        {
+            "image":"https://static.wanted.co.kr/images/company/26340/mifvoqnc3s9qj0t4__1080_790.jpg",
+            "position":"플랫폼 개발자 (백엔드)",
+            "name":"어반유니온",
+            "response":"true",
+            "city":"서울",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        },
+        {
+            "image":"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F2297%2F8460_2_0.568dd034__400_400.jpg&w=400&q=75",
+            "position":"(C++기반) 네트워크 보안 에이전트 개발",
+            "name":"소만사",
+            "response":"true",
+            "city":"서울",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        },
+        {
+            "image":"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F2297%2F8460_2_0.568dd034__400_400.jpg&w=400&q=75",
+            "position":"정보보안 SW 솔루션 QA 엔지니어",
+            "name":"소만사",
+            "response":"true",
+            "city":"서울",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        },
+        {
+            "image":"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F40093%2F5umcwusdfm0j3y46__400_400.jpeg&w=400&q=75",
+            "position":"인공지능 엔지니어",
+            "name":"에이인비",
+            "response":"true",
+            "city":"서울",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        },
+        {
+            "image":"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F13048%2Fzjus8a0pfem1op04__400_400.jpg&w=400&q=75",
+            "position":"개발팀(SM)",
+            "name":"아이템베이",
+            "response":"true",
+            "city":"서울",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        },
+        {
+            "image":"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4049%2Fhs8p2a2q2tfoaq6n__400_400.jpg&w=400&q=75",
+            "position":"PHP 웹 솔루션 개발",
+            "name":"포비즈코리아",
+            "response":"true",
+            "city":"서울",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        },
+        {
+            "image":"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F14882%2Fifx1nttlhrf9nnir__400_400.jpg&w=400&q=75",
+            "position":"QA 엔지니어",
+            "name":"아바티(AVATE)",
+            "response":"true",
+            "city":"경기",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        },
+        {
+            "image":"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F40093%2F5umcwusdfm0j3y46__400_400.jpeg&w=400&q=75",
+            "position":"C# 개발자",
+            "name":"넥스큐브코퍼레이션",
+            "response":"true",
+            "city":"서울",
+            "nation":"한국",
+            "reward":"채용 보상금 1,000,000원"
+        }
+    ]
+}

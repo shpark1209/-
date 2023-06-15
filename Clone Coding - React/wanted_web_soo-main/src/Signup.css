@@ -1,0 +1,345 @@
+:root, html{
+    --theme-palette-colors-gray-900: #333;
+    --theme-palette-colors-gray-700: #767676;
+    --theme-palette-colors-gray-600: #888;
+    --theme-palette-colors-black-100: #000;
+    --theme-palette-colors-gray-300: #ccc;
+    --theme-palette-colors-common-white:#fff;
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body, html, #root, .App {
+	line-height: 1;
+    height: 100%;
+    width: 100%;
+}
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+Link, a{
+    text-decoration: none;
+    cursor: pointer;
+    color: unset;
+}
+button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+.next{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    word-break: keep-all;
+
+}
+.next-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+}
+.signup-container{
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: #fff;
+}
+.signup-wrapper{
+    border: 1px solid #e1e2e3;
+    border-radius: 5px;
+    width: 100%;
+    max-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+}
+.signup-header{
+    padding: 0 20px;
+    height: 64px;
+    flex: 0 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.signup-left{
+    min-width: 64px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 400;
+    font-size: 17px;
+}
+.signup-cancel{
+    border: none;
+    padding: 8px;
+    margin: -8px;
+    fill: #000;
+}
+.signup-cancel-label{
+    color: #000;
+    text-align: center;
+    min-width: 64px;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 400;
+    font-size: 17px;
+}
+.signup-middle{
+    display: flex;
+    flex: 1 1 0%;
+    justify-content: center;
+    align-items: center;
+}
+.signup-middle-label{
+    color: #000;
+    font-weight: 600;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    flex: 1 1 0%;
+    justify-content: center;
+    align-items: center;
+}
+.signup-right{
+    display: flex;
+    min-width: 64px;
+    justify-content: flex-end;
+    align-items: center;
+}
+.signup-condition{
+    overflow: auto;
+    position: relative;
+    padding: 20px;
+}
+.signup-condition::-webkit-scrollbar {
+    display: none;
+  }
+.box-wrapper{
+    margin: 17px 0 7px;
+}
+.box-label{
+    color: #888;
+    font-weight: 600;
+    text-align: left;
+    font-size: 14px;
+}
+.box{
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    padding: 0 12px;
+    outline: none;
+    border: 1px solid #e1e2e3;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+.country-select-wrapper{
+    height: 50px;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #e1e2e3;
+    margin-bottom: 10px;
+}
+.country-select{
+    padding-left: 12px;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    color: #333;
+    font-weight: 400;
+    border: none;
+}
+.phone-number-wrapper{
+    display: flex;
+}
+.phone-number-input{
+    width: 100%;
+    height: 50px;
+    padding: 0 12px;
+    outline: none;
+    background-color: transparent;
+    border: 1px solid #e1e2e3;
+    color: #333;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+.phone-number-request:disabled{
+    border: 1px solid #f2f4f7;
+    color: #ccc;
+    background-color: #f2f4f7;
+}
+.phone-number-request{
+    height: 50px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 0 15px;
+    width: auto;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-weight: 900;
+}
+.phone-number-check{
+    width: 100%;
+    height: 50px;
+    padding: 0 12px;
+    outline: none;
+    border: 1px solid #e1e2e3;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    background-color: #f2f4f7;
+    color: #ccc;
+}
+.password-confirm-label{
+    color: #888;
+    font-weight: 400;
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+.all-confirm{
+    display: flex;
+    align-items: center;
+    min-height: 25px;
+    width: 100%;
+    margin: 28px 0px 10px;
+    position: relative;
+}
+.checkbox{
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    border: 1px solid #ececec;
+}
+.confirm-check{
+    opacity: 0;
+    width: calc(100% - 90px);
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+}
+.checkbox-text-wrapper{
+    display: flex;
+    flex: 1 1 0%;
+}
+.checkbox-text{
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    font-size: 14px;
+    margin: 0 0 0 7px;
+    word-break: keep-all;
+    letter-spacing: 0.0096em;
+}
+
+.sc-beySbM>.svg-icon > .css-1h47l4s{
+    padding-top: 0.2em;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    fill: currentColor;
+    align-items: center;
+}
+.confirm-checkbox-wrapper{
+    display: flex;
+    align-items: center;
+    min-height: 25px;
+    width: 100%;
+    margin: 10px 0px;
+    position: relative;
+}
+.confirm-detail{
+    color: #888;
+    font-weight: 600;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0;
+    letter-spacing: 0.0096em;
+}
+.event-wrapper{
+    display: flex;
+    margin-left: 28px;
+}
+.event{
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 18px;
+    cursor: pointer;
+}
+.event > input{
+    display: none;
+}
+.event > .svg-icon > svg{
+    width: 1em;
+    height: 1em;
+    margin-right: 5px;
+}
+.check-label{
+    color: #888;
+    font-weight: 400;
+    font-size: 15px;
+}
