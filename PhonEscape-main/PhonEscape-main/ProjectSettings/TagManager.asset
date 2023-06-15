@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Book
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Wall
+  - Trash
+  - TrashCan
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 398528685
+    locked: 0
+  - name: clue
+    uniqueID: 1659313005
+    locked: 0
+  - name: Number
+    uniqueID: 2213339981
+    locked: 0
+  - name: popup
+    uniqueID: 3527520667
+    locked: 0
+  - name: UI
+    uniqueID: 710356537
+    locked: 0
