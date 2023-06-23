@@ -1,0 +1,350 @@
+const scriptName = "FinFlow";
+/**
+ * (string) room
+ * (string) sender
+ * (boolean) isGroupChat
+ * (void) replier.reply(message)
+ * (boolean) replier.reply(room, message, hideErrorToast = false) // 전송 성공시 true, 실패시 false 반환
+ * (string) imageDB.getProfileBase64()
+ * (string) packageName
+ */
+function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
+  var string = "";
+  var url = "ec2-3-38-200-65.ap-northeast-2.compute.amazonaws.com";
+  if (msg.startsWith("#grant")) {
+    //만약 sender가 방장 권한이라면 권한 수정(db상에서)
+  } else if (msg.startsWith("#chart")) {
+    var tickerArr = msg.split(" ");
+    if (tickerArr.length == 1) {
+      replier.reply("주식 이름을 입력해주세요");
+    } else if (tickerArr.length > 2) {
+      replier.reply("한번에 한 주식만 입력해주세요");
+    } else {
+      try {
+        var showRes = org.jsoup.Jsoup.connect("http://"+url+":8001/charts/show/"+tickerArr[1]).header("content-type", "application/json").header("accept", "application/json").ignoreHttpErrors(true).ignoreContentType(true).get().text();
+        showRes = JSON.parse(showRes);
+        if(showRes.message=="Stock not found"){
+          replier.reply(tickerArr[1]+"(이)라는 주식은 존재하지 않습니다.");
+        }
+        else{
+          string = "";
+          string += tickerArr[1] + " 주식의 가격 정보입니다.\n";
+          string += "최고가 : " + showRes["high_price"]+"원\n";
+          string += "최저가 : " + showRes["low_price"]+"원\n";
+          string += "현재가 : " + showRes["current_price"]+"원\n";
+          string += "시작가 : " + showRes["start_price"]+"원\n";
+          string += "등락 : " + showRes["current_rate"]+"%";
+          replier.reply(string);
+        }
+      }      catch (e) {
+  
+}
+    }
+  } else if (msg.startsWith("#start")) {
+    var msgArr = msg.split(" ");
+    var people = [];
+    var flag = false;
+    //관리자 권한이 없는 경우의 if문도 추가
+    if (msgArr.length == 1) {
+      replier.reply("초기 자금과 기간(시작, 끝)을 순서대로 입력해주세요");
+    } else if (msgArr.length == 2) {
+      replier.reply("기간(시작, 끝)을 입력해주세요(YYYY-MM-DD)");
+    } else {
+      for (var i = 4; i < msgArr.length; i++) {
+        people.push(msgArr[i]);
+      }
+      var startObj = {
+  "start_date": msgArr[2], 
+  "end_date": msgArr[3], 
+  "money": msgArr[1]};
+      var startJSON = JSON.stringify(startObj);
+      var userJSON = JSON.stringify(people);
+      try {
+        var userRes = org.jsoup.Jsoup.connect("http://"+url+":8001/users").header("content-type", "application/json").header("accept", "application/json").requestBody(userJSON).ignoreHttpErrors(true).ignoreContentType(true).post().text();
+        userRes = JSON.parse(userRes);
+        if (userRes.message == "Users created successfully") {
+          flag = true;
+        } else {
+          replier.reply("시즌 개최에 실패했습니다! 다시 시도해주세요!");
+        }
+      }      
+      catch (e) {
+        replier.reply("시즌 개최에 실패했습니다! 다시 시도해주세요!");
+      }
+      if (flag == true) {
+        try {
+          var hostRes = org.jsoup.Jsoup.connect("http://"+url+":8001/set-host/"+sender).header("content-type", "application/json").header("accept", "application/json").ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).get().text();
+          hostRes=JSON.parse(hostRes);
+          if (hostRes.message == "Host set successfully") {
+            replier.reply(sender + "님이 방장이 되었습니다!");
+          } else {
+            replier.reply("방장 설정에 오류가 발생했습니다!");
+          }
+        }          
+        catch (e) {
+            replier.reply(e);
+        }
+        try {
+          var startRes = org.jsoup.Jsoup.connect("http://"+url+":8001/start").header("content-type", "application/json").header("accept", "application/json").requestBody(startJSON).ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).post().text();
+          startRes = JSON.parse(startRes);
+          if (startRes.message == "Season started successfully") {
+            string = "모의 투자 시즌을 시작합니다!\n";
+            string += "초기 자금은 :" + msgArr[1] + "원입니다.\n";
+            string += "기간은 " + msgArr[2] + "부터 " + msgArr[3] + "까지입니다!";
+            replier.reply(string);
+          } else {
+            replier.reply("시즌 개최에 실패했습니다! 다시 시도해주세요!");
+          }
+        }        
+        catch (e) {
+          replier.reply("시즌 개최에 실패했습니다! 다시 시도해주세요!");
+        }
+        
+      }
+    }
+  } else if (msg.startsWith("#buy")) {
+    msgArr = msg.split(" ");
+    if (msgArr.length == 1) {
+      replier.reply("주식 이름과 매수 물량을 입력해주세요");
+    } else if (msgArr.length == 2) {
+      replier.reply("매수 물량을 입력해주세요");
+    } else if (msgArr.length > 3) {
+      replier.reply("너무 많은 입력이 주어졌습니다. \n 주식 이름과 매수 물량을 입력해주세요");
+    } else {
+      const buyTicker = msgArr[1];
+      var number = msgArr[2];
+      var buyObj = {
+  "name": sender, 
+  "stock_name": buyTicker, 
+  "quantity": number};
+      var buyJSON = JSON.stringify(buyObj);
+      try {
+        var buyRes = org.jsoup.Jsoup.connect("http://"+url+":8001/trade/buy").header("content-type", "application/json").header("accept", "application/json").requestBody(buyJSON).ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).post().text();
+        buyRes = JSON.parse(buyRes);
+        if (buyRes.message == "Stock bought successfully") {
+          string = "";
+          string = sender + "님이 " + buyTicker + "주식을 " + number + "만큼 매수했습니다.";
+          replier.reply(string);
+        } else if (buyRes.message == "Not enough money to buy the stock") {
+          string = "";
+          string = sender + "님의 보유 자금이 부족합니다.";
+          replier.reply(string);
+        } else if (buyRes.message == "Cannot buy stock outside the season") {
+          string = "";
+          string = "시즌 개최 명령어를 먼저 실행해주세요!";
+          replier.reply(string);
+        } else if (buyRes.message == "User not found") {
+          string = "";
+          string = sender + "님은 시즌에 참가하지 않았습니다.";
+          replier.reply(string);
+        } else {
+          replier.reply("주식 매수에 실패했습니다.");
+        }
+      }      catch (e) {
+  replier.reply("주식 매수 기능에 문제가 발생했습니다.");
+}
+    }
+  } else if (msg.startsWith("#sell")) {
+    msgArr = msg.split(" ");
+    if (msgArr.length == 1) {
+      replier.reply("주식 이름과 매도 물량을 입력해주세요");
+    } else if (msgArr.length == 2) {
+      replier.reply("매도 물량을 입력해주세요");
+    } else if (msgArr.length > 3) {
+      replier.reply("너무 많은 입력이 주어졌습니다. \n주식 이름과 매도 물량을 입력해주세요");
+    } else {
+      const sellTicker = msgArr[1];
+      number = msgArr[2];
+      var sellObj = {
+  "name": sender, 
+  "stock_name": sellTicker, 
+  "quantity": number};
+      var sellJSON = JSON.stringify(sellObj);
+      try {
+        var sellRes = org.jsoup.Jsoup.connect("http://"+url+":8001/trade/sell").header("content-type", "application/json").header("accept", "application/json").requestBody(sellJSON).ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).post().text();
+        sellRes = JSON.parse(sellRes);
+        if (sellRes.message == "Stock sold successfully") {
+          string = "";
+          string = sender + "님이 " + sellTicker + "주식을 " + number + "만큼 매도했습니다.";
+          replier.reply(string);
+        } else if (sellRes.message == "Cannot sell stock outside the season") {
+          string = "";
+          string = "시즌 개최 명령어를 먼저 실행해주세요!";
+          replier.reply(string);
+          replier.reply(sellRes.message);
+        } else if (sellRes.message == "User not found") {
+          string = "";
+          string = sender + "님은 시즌에 참가하지 않았습니다.";
+          replier.reply(string);
+        } else if (sellRes.message == "Not enough stocks to sell") {
+          string = "";
+          string = sender + "님이 소유하고 있는 주식의 수량이 매도 수량보다 적습니다.";
+        } else {
+          replier.reply("주식 매도에 실패했습니다.");
+          replier.reply(sellRes.message);
+        }
+      }      catch (e) {
+  replier.reply("주식 매도에 실패했습니다.");
+}
+    }
+  } else if (msg.startsWith("#mystats")) {
+    msgArr = msg.split(" ");
+    try {
+      var myRes = org.jsoup.Jsoup.connect("http://"+url+":8001/trade/mystats").header("content-type", "application/json").header("accept", "application/json").data("name", sender).ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).get().text();
+      myRes = JSON.parse(myRes);
+      //mystats user not found 처리하기
+      if (myRes.message != "User not found") {
+        var totalSum = myRes["총 매입금"];
+        var totalEval = myRes["총 평가금"];
+        var stockHolding = myRes["보유 주식"];
+        var currentProfit = myRes["현재 수익률"];
+        var cashHoldings = myRes["현금 보유액"];
+        string = "";
+        string += sender + "님의 현재 스탯입니다.\n";
+        string += "총 매입금 : " + totalSum + "원\n";
+        string += "총 평가금 : " + totalEval + "원\n";
+        if (stockHolding.length != 0) {
+          string += "\n";
+          for (i = 0; i < stockHolding.length; i++) {
+            var stock = stockHolding[i];
+            string += "주식명: " + stock["주식명"] + "\n";
+            string += "매입금: " + stock["매입금"] + "\n";
+            string += "평가손익: " + stock["평가손익"] + "\n\n";
+          }
+        } else {
+          string += "보유 주식 : 없음\n";
+        }
+        string += "현재 수익률 :" + currentProfit + "\n";
+        string += "현금 보유액 :" + cashHoldings;
+        replier.reply(string);
+      } else {
+        replier.reply(sender + "님은 현재 시즌에 참가하지 않고 있습니다.");
+      }
+    }    catch (e) {
+  replier.reply(sender + "님은 현재 시즌에 참가하지 않고 있습니다.");
+  //replier.reply("사용자의 스탯을 불러오는데 에러가 발생했습니다!");
+}
+  } else if (msg.startsWith("#help")) {
+    var helpString = "안녕하세요! 모의투자를 도와주는 FinFlow 봇입니다.\n";
+    helpString += "제공해주는 기능은 1) 시즌 개최 2) 주식 매수/매도 3)주식 가격 보기 4) 시즌 종료 5) 스탯 보기 6)주식 레터 7) 투자 보고서 가 있습니다.\n";
+    helpString += "\n1) 시즌 개최\n";
+    helpString += "시즌 개최는 #start [초기 자금] [시즌 시작일] [시즌 마무리일] [카톡방 인원 이름들] 을 입력하면 됩니다. 날짜를 입력할때는 YYYY-MM-DD 형식을 지켜서 입력해주세요.";
+    helpString += "\n\n2) 주식 매수/매도\n";
+    helpString += "주식 매도는 #buy [주식 이름] [매도 수량] 을 입력하면 이루어집니다.\n 주식 매도는 #sell [주식 이름] [매도 수량]을 입력하면 이루어집니다.";
+    helpString +="\n\n3) 주식 가격 보기\n";
+    helpString +="주식 가격 보기는 #chart [주식 이름]을 입력하면 해당 주식의 최고가, 최저가, 현재가, 시작가, 등락률을 텍스트 형식으로 보여줍니다. 단, 주식은 꼭 한 개씩 기입하셔야 합니다.";
+    helpString += "\n\n4) 시즌 종료\n";
+    helpString += "시즌 종료는 #end 명령어를 입력하면 이루어집니다. 단, 이미 실행되고 있는 시즌이 존재해야 합니다.\n";
+    helpString += "\n5) 스탯 보기\n";
+    helpString += "스탯 보기는 #mystats를 입력하면 자신의 주식 거래에 관한 세부 지표들이 출력됩니다.";
+    helpString += "\n\n6) 주식 레터\n";
+    helpString += "주식 레터는 #letter [주식 이름들]을 입력하면 뉴스를 ChatGPT가 요약해서 알려줍니다!";
+    helpString += "\n\n7) 투자 보고서\n";
+    helpString += "투자 보고서는 #report [사용자 이름]을 입력하면 해당 사용자의 투자 성향등을 ChatGPT가 분석해서 알려줍니다!";
+    replier.reply(helpString);
+  } 
+  else if (msg.startsWith("#reset")) {  
+    //관리자 권한 있는지 if문
+    //자금 초기화 및 조건 설정
+    msgArr=msg.split(" ");
+    try{
+      var isRes = org.jsoup.Jsoup.connect("http://"+url+":8001/is-host")
+      .header("content-type", "application/json")
+      .header("accept", "application/json")
+      .ignoreHttpErrors(true)
+      .ignoreContentType(true)
+      .timeout(200000)
+      .post()
+      .text();
+      isRes=JSON.parse(isRes);
+      if(isRes.message=="You are not the host"){
+        replier.reply(sender+"님은 방장 권한이 없습니다.");
+      }
+      else{
+        var resetRes = org.jsoup.Jsoup.connect("http://"+url+":8001/reset")
+      .header("content-type", "application/json")
+      .header("accept", "application/json")
+      .requestBody(hostJSON)
+      .ignoreHttpErrors(true)
+      .ignoreContentType(true)
+      .timeout(200000)
+      .post()
+      .text();
+      resetRes=JSON.parse(resetRes);
+      }
+      
+    }
+    catch(e){
+      //replier.reply("초기화를 실패했습니다.");
+    }
+
+  } 
+  else if (msg.startsWith("#end")) {
+    try {
+      isRes = org.jsoup.Jsoup.connect("http://"+url+":8001/is-host/"+sender).header("content-type", "application/json").header("accept", "application/json").ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).get().text();
+      isRes = JSON.parse(isRes);
+      if (isRes.message == "You are not the host") {
+        replier.reply(sender + "님은 방장 권한이 없습니다.");
+      } else if(isRes.message == "You are the host") {
+        try {
+          var endRes = org.jsoup.Jsoup.connect("http://"+url+":8001/end").header("content-type", "application/json").header("accept", "application/json").ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).post().text();
+          endRes = JSON.parse(endRes);
+          replier.reply(endRes.message);
+        }        
+        catch (e) {
+          replier.reply("시즌 종료에 실패했습니다.");
+        }
+      }
+    }    catch (e) {
+}  
+  } else if (msg.startsWith("#letter")) {
+    var letterMsg = msg.split(" ");
+    var letterArr = [];
+    for (i = 1; i < letterMsg.length; i++) {
+      letterArr.push(letterMsg[i]);
+    }
+    var letterTicker = {
+  "stock_tickers": letterArr};
+    replier.reply("레터 서비스를 불러오는 중입니다...(최대 4분 정도 걸립니다.)");
+    var letterJSON = JSON.stringify(letterTicker);
+    try {
+      var letterRes = org.jsoup.Jsoup.connect("http://"+url+":8002/stock-news-letter").header("content-type", "application/json").header("accept", "application/json").requestBody(letterJSON).ignoreHttpErrors(true).ignoreContentType(true).timeout(2000000).post().text();
+      letterRes = JSON.parse(letterRes);
+      replier.reply(letterRes.result);
+    }    catch (e) {
+  replier.reply("레터 서비스를 불러오는데 실패했습니다.");
+}
+  } else if (msg.startsWith("#report")) {
+    var reportMsg = msg.split(" ");
+    var reportObj = {
+  "name": reportMsg[1]};
+    replier.reply("레포트 서비스를 불러오는 중입니다....");
+    var reportJSON = JSON.stringify(reportObj);
+    try {
+      var reportRes = org.jsoup.Jsoup.connect("http://"+url+":8002/stock-report").header("content-type", "application/json").header("accept", "application/json").requestBody(reportJSON).ignoreHttpErrors(true).ignoreContentType(true).timeout(200000).post().text();
+      reportRes = JSON.parse(reportRes);
+      if (reportRes.result.detail == null) {
+        replier.reply(reportRes.result);
+      } else {
+        replier.reply(reportMsg[1] + "님은 시즌에 참가하고 있지 않습니다.");
+      }
+    }    catch (e) {
+  replier.reply("레포트 서비스를 불러오는데 실패했습니다.");
+}
+  }
+}
+//아래 4개의 메소드는 액티비티 화면을 수정할때 사용됩니다.
+function onCreate(savedInstanceState, activity) {
+  var textView = new android.widget.TextView(activity);
+  textView.setText("Hello, World!");
+  textView.setTextColor(android.graphics.Color.DKGRAY);
+  activity.setContentView(textView);
+}
+function onStart(activity) {
+}
+function onResume(activity) {
+}
+function onPause(activity) {
+}
+function onStop(activity) {
+}
